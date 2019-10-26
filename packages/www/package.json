@@ -1,0 +1,19 @@
+{
+  "name": "www",
+  "private": true,
+  "version": "0.1.0",
+  "author": "Alex Luong <alex@alexluong.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "yarn clean && yarn develop",
+    "develop": "gatsby develop",
+    "build": "gatsby build",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean"
+  },
+  "dependencies": {
+    "gatsby": "^2.17.4",
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0"
+  }
+}

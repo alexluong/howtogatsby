@@ -1,0 +1,12 @@
+{
+  "name": "gatsby-htg-course",
+  "version": "0.1.0",
+  "author": "Alex Luong <alex@alexluong.com>",
+  "license": "MIT",
+  "peerDependencies": {
+    "gatsby": ">=2.13.80",
+    "gatsby-source-filesystem": "2.x",
+    "react": "16.x",
+    "react-dom": "16.x"
+  }
+}

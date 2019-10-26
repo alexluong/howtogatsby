@@ -1,0 +1,23 @@
+{
+  "name": "gatsby-theme-htg",
+  "version": "0.1.0",
+  "author": "Alex Luong <alex@alexluong.com>",
+  "license": "MIT",
+  "peerDependencies": {
+    "gatsby": ">=2.13.80",
+    "react": "16.x",
+    "react-dom": "16.x"
+  },
+  "dependencies": {
+    "@chakra-ui/core": "^0.4.1",
+    "@emotion/core": "^10.0.22",
+    "@emotion/styled": "^10.0.22",
+    "@mdx-js/mdx": "^1.5.1",
+    "@mdx-js/react": "^1.5.1",
+    "emotion-theming": "^10.0.19",
+    "gatsby-htg-course": "0.1.0",
+    "gatsby-plugin-mdx": "^1.0.53",
+    "gatsby-plugin-typescript": "^2.1.15",
+    "gatsby-source-filesystem": "^2.1.33"
+  }
+}
