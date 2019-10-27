@@ -4,6 +4,7 @@ const {
   createCourseNodeId,
   createLessonNode,
   createCourseNode,
+  getLessonsFromCourse,
 } = require("./helpers");
 
 const mdxResolverPassthrough = fieldName => async (
@@ -65,6 +66,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
     body: String!
     html: String!
     slug: String!
+    lessons: [Lesson]!
   }`);
 
   createTypes(
@@ -82,6 +84,15 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
         html: {
           type: "String!",
           resolve: mdxResolverPassthrough("html"),
+        },
+        lessonIds: { type: ["String!"] },
+        lessons: {
+          type: "[Lesson]!",
+          resolve: (source, args, context, info) => {
+            return source.lessonIds.map(id =>
+              context.nodeModel.getNodeById({ id }),
+            );
+          },
         },
       },
       interfaces: ["Node", "Course"],
@@ -120,10 +131,14 @@ exports.onCreateNode = async ({ node, actions, getNode, createNodeId }) => {
   // Course
   if (fileNode.sourceInstanceName === "courses") {
     const slug = fileNode.relativeDirectory;
+    const lessons = getLessonsFromCourse(createNodeId, slug, fileNode.dir);
+
+    // console.log(lessons);
     const fieldData = {
       slug,
       title: node.frontmatter.title,
       description: node.frontmatter.description,
+      lessonIds: lessons,
     };
 
     const mdxCourseId = createCourseNodeId(createNodeId, slug);

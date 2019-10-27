@@ -1,7 +1,7 @@
 import React from "react";
-import { graphql } from "gatsby";
+import { graphql, navigate } from "gatsby";
 import { MDXRenderer } from "gatsby-plugin-mdx";
-import { Box, Heading } from "@chakra-ui/core";
+import { Box, Heading, List, ListItem, Link, Text } from "@chakra-ui/core";
 
 interface CourseTemplateProps {
   data: {
@@ -9,6 +9,11 @@ interface CourseTemplateProps {
       body: string;
       title: string;
       slug: string;
+      lessons: {
+        id: string;
+        title: string;
+        slug: string;
+      }[];
     };
   };
 }
@@ -19,6 +24,18 @@ const CourseTemplate: React.FC<CourseTemplateProps> = ({
   return (
     <Box p={8}>
       <Heading as="h1">Course: {course.title}</Heading>
+      <Text>Lessons:</Text>
+      <List as="ol" styleType="decimal">
+        {course.lessons.map(lesson => (
+          <ListItem
+            key={lesson.id}
+            onClick={() => navigate(`/${lesson.slug}`)}
+            cursor="pointer"
+          >
+            {lesson.title}
+          </ListItem>
+        ))}
+      </List>
       <MDXRenderer>{course.body}</MDXRenderer>
     </Box>
   );
@@ -32,6 +49,11 @@ export const query = graphql`
       body
       title
       slug
+      lessons {
+        id
+        title
+        slug
+      }
     }
   }
 `;

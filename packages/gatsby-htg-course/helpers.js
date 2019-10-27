@@ -1,12 +1,17 @@
+const fs = require("fs");
+const path = require("path");
 const crypto = require("crypto");
 
-exports.createLessonNodeId = (createNodeId, slug) => {
+function createLessonNodeId(createNodeId, slug) {
   return createNodeId(`${slug} >>> MdxLesson`);
-};
+}
 
-exports.createCourseNodeId = (createNodeId, slug) => {
+function createCourseNodeId(createNodeId, slug) {
   return createNodeId(`${slug} >>> MdxCourse`);
-};
+}
+
+exports.createLessonNodeId = createLessonNodeId;
+exports.createCourseNodeId = createCourseNodeId;
 
 exports.createLessonNode = ({ createNode, id, parentId, content }) => {
   const nodeContent = JSON.stringify(content);
@@ -28,7 +33,6 @@ exports.createLessonNode = ({ createNode, id, parentId, content }) => {
 };
 
 exports.createCourseNode = ({ createNode, id, parentId, content }) => {
-  console.log({ createNode, id, parentId, content });
   const nodeContent = JSON.stringify(content);
   return createNode({
     ...content,
@@ -45,4 +49,16 @@ exports.createCourseNode = ({ createNode, id, parentId, content }) => {
       description: "Mdx implementation of the Course interface",
     },
   });
+};
+
+// Return list of lessons ids to link Course and Lessons
+exports.getLessonsFromCourse = (createNodeId, dir, dirPath) => {
+  const lessons = fs
+    .readdirSync(path.resolve(dirPath))
+    .filter(file => file.includes(".mdx") && file !== "index.mdx")
+    .map(file =>
+      createLessonNodeId(createNodeId, `${dir}/${file.replace(".mdx", "")}`),
+    );
+
+  return lessons;
 };
