@@ -3,9 +3,9 @@ import { graphql } from "gatsby";
 import { MDXRenderer } from "gatsby-plugin-mdx";
 import { Box, Heading } from "@chakra-ui/core";
 
-interface LessonTemplateProps {
+interface CourseTemplateProps {
   data: {
-    lesson: {
+    course: {
       body: string;
       title: string;
       slug: string;
@@ -13,22 +13,22 @@ interface LessonTemplateProps {
   };
 }
 
-const LessonTemplate: React.FC<LessonTemplateProps> = ({
-  data: { lesson },
+const CourseTemplate: React.FC<CourseTemplateProps> = ({
+  data: { course },
 }) => {
   return (
     <Box p={8}>
-      <Heading as="h1">Lesson: {lesson.title}</Heading>
-      <MDXRenderer>{lesson.body}</MDXRenderer>
+      <Heading as="h1">Course: {course.title}</Heading>
+      <MDXRenderer>{course.body}</MDXRenderer>
     </Box>
   );
 };
 
-export default LessonTemplate;
+export default CourseTemplate;
 
 export const query = graphql`
-  query LessonQuery($slug: String!) {
-    lesson(slug: { eq: $slug }) {
+  query CourseQuery($slug: String!) {
+    course(slug: { eq: $slug }) {
       body
       title
       slug
