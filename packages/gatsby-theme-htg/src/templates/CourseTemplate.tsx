@@ -1,7 +1,9 @@
 import React from "react";
 import { graphql, navigate } from "gatsby";
 import { MDXRenderer } from "gatsby-plugin-mdx";
-import { Box, Heading, List, ListItem, Link, Text } from "@chakra-ui/core";
+import { Heading, List, ListItem, Text } from "@chakra-ui/core";
+import Layout from "../components/Layout";
+import Container from "../components/Container";
 
 interface CourseTemplateProps {
   data: {
@@ -22,22 +24,24 @@ const CourseTemplate: React.FC<CourseTemplateProps> = ({
   data: { course },
 }) => {
   return (
-    <Box p={8}>
-      <Heading as="h1">Course: {course.title}</Heading>
-      <Text>Lessons:</Text>
-      <List as="ol" styleType="decimal">
-        {course.lessons.map(lesson => (
-          <ListItem
-            key={lesson.id}
-            onClick={() => navigate(`/${lesson.slug}`)}
-            cursor="pointer"
-          >
-            {lesson.title}
-          </ListItem>
-        ))}
-      </List>
-      <MDXRenderer>{course.body}</MDXRenderer>
-    </Box>
+    <Layout>
+      <Container py={48}>
+        <Heading as="h1">Course: {course.title}</Heading>
+        <Text>Lessons:</Text>
+        <List as="ol" styleType="decimal">
+          {course.lessons.map(lesson => (
+            <ListItem
+              key={lesson.id}
+              onClick={() => navigate(`/${lesson.slug}`)}
+              cursor="pointer"
+            >
+              {lesson.title}
+            </ListItem>
+          ))}
+        </List>
+        <MDXRenderer>{course.body}</MDXRenderer>
+      </Container>
+    </Layout>
   );
 };
 

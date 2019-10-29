@@ -1,7 +1,9 @@
 import React from "react";
 import { graphql } from "gatsby";
 import { MDXRenderer } from "gatsby-plugin-mdx";
-import { Box, Heading } from "@chakra-ui/core";
+import { Heading } from "@chakra-ui/core";
+import Layout from "../components/Layout";
+import Container from "../components/Container";
 
 interface LessonTemplateProps {
   data: {
@@ -17,10 +19,14 @@ const LessonTemplate: React.FC<LessonTemplateProps> = ({
   data: { lesson },
 }) => {
   return (
-    <Box p={8}>
-      <Heading as="h1">Lesson: {lesson.title}</Heading>
-      <MDXRenderer>{lesson.body}</MDXRenderer>
-    </Box>
+    <Layout>
+      <Container mt="100px" py={16}>
+        <Heading as="h1" size="2xl" mb={8}>
+          Lesson: {lesson.title}
+        </Heading>
+        <MDXRenderer>{lesson.body}</MDXRenderer>
+      </Container>
+    </Layout>
   );
 };
 
